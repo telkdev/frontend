@@ -3,12 +3,14 @@ import { ref } from "vue";
 
 interface Move {
   player: string;
-  position: string;
+  hero: string;
 }
 
 interface GameState {
   players: string[];
   turns: Move[];
+  currentTurn: string;
+  pickedHeroes: Record<string, string[]>;
 }
 
 const socket = io("http://localhost:3000"); // Update with backend URL
@@ -20,7 +22,6 @@ export function useGame() {
   };
 
   const joinGame = (gameId: string) => {
-    debugger
     socket.emit("join-game", gameId);
   };
 
@@ -28,9 +29,11 @@ export function useGame() {
     socket.emit("play-turn", { gameId, move });
   };
 
-  function gameUpdateHandler() {
-    
-  }
-
-  return { createGame, joinGame, playTurn, gameState, gameUpdateHandler, socket };
+  return {
+    createGame,
+    joinGame,
+    playTurn,
+    gameState,
+    socket,
+  };
 }

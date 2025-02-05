@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
     <ion-header>
@@ -6,7 +5,9 @@
     </ion-header>
     <ion-content class="ion-padding">
       <ion-input v-model="gameId" placeholder="Enter Game ID"></ion-input>
-      <ion-button :disabled="!gameId" @click="createGame">Create Game</ion-button>
+      <ion-button :disabled="!gameId" @click="createGame"
+        >Create Game</ion-button
+      >
       <ion-button :disabled="!gameId" @click="joinGame">Join Game</ion-button>
     </ion-content>
   </ion-page>
@@ -30,6 +31,7 @@ const { createGame: create, joinGame: join } = useGame();
 const gameId = ref<string>("");
 const router = useRouter();
 
+// TODO: user id can be retrieved from the socket connection
 const createGame = () => {
   if (!gameId.value) return;
   create(gameId.value);
